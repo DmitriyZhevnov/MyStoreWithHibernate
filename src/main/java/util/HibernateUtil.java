@@ -27,10 +27,11 @@ public class HibernateUtil {
                 setting.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 //                setting.put(Environment.HBM2DDL_AUTO, "create-drop");
                 configuration.setProperties(setting);
-                configuration.addAnnotatedClass(Order.class);
-                configuration.addAnnotatedClass(OrderItem.class);
+//                configuration.addAnnotatedClass(Order.class);
+//                configuration.addAnnotatedClass(OrderItem.class);
                 configuration.addAnnotatedClass(Role.class);
                 configuration.addAnnotatedClass(Basket.class);
+                configuration.addAnnotatedClass(BasketItem.class);
                 configuration.addAnnotatedClass(Product.class);
                 configuration.addAnnotatedClass(Person.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

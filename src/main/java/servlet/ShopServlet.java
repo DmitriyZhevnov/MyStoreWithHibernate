@@ -27,12 +27,12 @@ public class ShopServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        try {
         Person person = (Person) req.getSession().getAttribute("currentUser");
-        List<Product> storageOfProducts2 = (List<Product>) req.getSession().getAttribute("storageOfProducts");
-        PersonDao personDao = new PersonDao();
+//        List<Product> storageOfProducts2 = (List<Product>) req.getSession().getAttribute("storageOfProducts");
+//        PersonDao personDao = new PersonDao();
         ProductDao productDao = new ProductDao();
         Product thisProductInStorage = productDao.returnProductById(Integer
                 .parseInt(req.getParameter("idProduct")));
-        int countOfThisProductInStorage = thisProductInStorage.getCount();
+//        int countOfThisProductInStorage = thisProductInStorage.getCount();
         int countInRequest = Integer.parseInt(req.getParameter("count"));
 //            if (countOfThisProductInStorage < countInRequest) {
 //                logger.info("Был не удовлетворен запрос на " + countInRequest + " единиц товара " + thisProductInStorage.getName());

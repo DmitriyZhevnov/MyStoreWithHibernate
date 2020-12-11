@@ -2,6 +2,7 @@ package pojo;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,11 +18,8 @@ public class Product {
     private double price;
     private int count;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private Set<Basket> baskets = new HashSet<>();
-
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private Set<OrderItem> orderItems = new HashSet<>();
+    @ManyToMany(mappedBy = "products")
+    private List<BasketItem> basketItems ;
 
     public Product() {
     }
@@ -32,30 +30,6 @@ public class Product {
         this.description = description;
         this.price = price;
         this.count = count;
-    }
-
-    public Set<Basket> getBaskets() {
-        return baskets;
-    }
-
-    public void setBaskets(Set<Basket> baskets) {
-        this.baskets = baskets;
-    }
-
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getId() {
@@ -72,6 +46,14 @@ public class Product {
 
     public void setSerialNumber(int serialNumber) {
         this.serialNumber = serialNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -98,6 +80,14 @@ public class Product {
         this.count = count;
     }
 
+    public List<BasketItem> getBasketItems() {
+        return basketItems;
+    }
+
+    public void setBasketItems(List<BasketItem> basketItems) {
+        this.basketItems = basketItems;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -107,6 +97,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", count=" + count +
+                ", basketItems=" + basketItems +
                 '}';
     }
 }

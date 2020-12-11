@@ -2,9 +2,7 @@ package dao;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import pojo.Person;
-import pojo.Product;
-import pojo.Role;
+import pojo.*;
 import util.HibernateUtil;
 
 import java.util.List;
@@ -43,7 +41,12 @@ public class PersonDao {
             session.beginTransaction();
             RoleDao roleDao = new RoleDao();
             Role roleForNewUser = roleDao.returnUserValue();
-            session.save(new Person(name, age, login, password, roleForNewUser, "", ""));
+            Person person = new Person(name, age, login, password, roleForNewUser, "", "");
+            Basket basket = new Basket();
+            person.setBasket(basket);
+            session.save(person);
+            basket.setPerson(person);
+            session.save(basket);
             session.getTransaction().commit();
         } catch (Exception e){
             e.printStackTrace();

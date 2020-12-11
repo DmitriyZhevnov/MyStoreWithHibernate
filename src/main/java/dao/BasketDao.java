@@ -3,6 +3,7 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import pojo.Basket;
+import pojo.BasketItem;
 import pojo.Person;
 import pojo.Product;
 import util.HibernateUtil;
@@ -16,18 +17,23 @@ public class BasketDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             Person person = session.get(Person.class, personId);
-            if (person.getBaskets().stream().filter(s -> s.getProduct().getId() == productId).collect(Collectors.toList()).isEmpty()) {
+//
+//            if (person.getBasket().getBasketItems().stream().forEach(basketItem -> basketItem.getProducts())11;
+//                    filter(s -> s.getId() == productId).collect(Collectors.toList()).isEmpty()){
                 Product product = session.get(Product.class, productId);
-                person.getBaskets().add(new Basket(person, count, product));
-                session.save(person);
+             //   product.setCount(count);
+            product.setBasketItems(person.getBasket().getBasketItems());
+//                person.getBasket().getBasketItems().add(new BasketItem()))
+//                System.out.println(person.getBasket());
+                session.update(product);
                 session.getTransaction().commit();
-            } else {
-                Basket basket = person.getBaskets().stream().filter(s -> s.getProduct().getId() == productId).collect(Collectors.toList()).get(0);
-                int firstQuantity = basket.getQuantity();
-                basket.setQuantity(firstQuantity + count);
-                session.update(person);
-                session.getTransaction().commit();
-            }
+//            } else {
+//                Product product = person.getBasket().getProducts().stream().filter(s -> s.getId() == productId).collect(Collectors.toList()).get(0);
+//                int firstQuantity = product.getCount();
+//                product.setCount(firstQuantity + count);
+//                session.update(person);
+//                session.getTransaction().commit();
+//            }
         }
     }
 

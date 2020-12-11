@@ -1,6 +1,7 @@
 package pojo;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "basket")
@@ -8,21 +9,19 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+
+    @OneToOne
     @JoinColumn(name = "id_person")
     private Person person;
-    private int quantity;
-    @ManyToOne
-    @JoinColumn(name = "id_product")
-    private Product product;
 
-    public Basket(Person person, int quantity, Product product) {
-        this.person = person;
-        this.quantity = quantity;
-        this.product = product;
-    }
+    @OneToMany (mappedBy="basket", fetch=FetchType.EAGER)
+    private List<BasketItem> basketItems;
 
     public Basket() {
+    }
+
+    public Basket(Person person) {
+        this.person = person;
     }
 
     public int getId() {
@@ -41,19 +40,20 @@ public class Basket {
         this.person = person;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public List<BasketItem> getBasketItems() {
+        return basketItems;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setBasketItems(List<BasketItem> basketItems) {
+        this.basketItems = basketItems;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    @Override
+    public String toString() {
+        return "Basket{" +
+                "id=" + id +
+                ", person=" + person +
+                ", basketItems=" + basketItems +
+                '}';
     }
 }

@@ -1,9 +1,6 @@
 package pojo;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -21,13 +18,8 @@ public class Person {
     @Column(name = "phone_number")
     private String phoneNumber;
     private String address;
-    //    private Basket basket;
-//    private OrderHistory orderHistory;
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
-    private Set<Basket> baskets = new HashSet<>();
-
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
-    private Set<Order> orders = new HashSet<>();
+    @OneToOne(mappedBy = "person", fetch = FetchType.EAGER)
+    private Basket basket;
 
     public Person() {
     }
@@ -42,36 +34,12 @@ public class Person {
         this.address = address;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
-
-    public void setBaskets(Set<Basket> baskets) {
-        this.baskets = baskets;
-    }
-
-    public Set<Basket> getBaskets() {
-        return baskets;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public String getName() {
@@ -106,6 +74,14 @@ public class Person {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -122,9 +98,12 @@ public class Person {
         this.address = address;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, login, password, role, phoneNumber, address, baskets);
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
     }
 
     @Override
@@ -138,8 +117,7 @@ public class Person {
                 ", role=" + role +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
-                ", baskets=" + baskets +
-                ", orders=" + orders +
+                ", basket=" + basket +
                 '}';
     }
 }

@@ -7,8 +7,11 @@ import java.util.Set;
 @Entity
 @Table(name = "role")
 public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private Set<Person> persons = new HashSet<>();
 
     public Role() {
@@ -18,7 +21,6 @@ public class Role {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     public Set<Person> getPersons() {
         return persons;
     }
@@ -27,8 +29,6 @@ public class Role {
         this.persons = persons;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -36,7 +36,6 @@ public class Role {
     public void setId(int id) {
         this.id = id;
     }
-    @Basic
     public String getName() {
         return name;
     }
@@ -50,7 +49,6 @@ public class Role {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", persons=" + persons +
                 '}';
     }
 }
